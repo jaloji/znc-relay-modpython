@@ -36,7 +36,7 @@ def _is_valid_module_args(parsed_args, required_args):
 
 
 class relay(znc.Module):
-    """ ZNC module with mosquitto publishing on IRC channel messages """
+    """ ZNC module """
 
     description = "Relay messages between two servers"
     module_types = [znc.CModInfo.GlobalModule]
@@ -82,7 +82,8 @@ class relay(znc.Module):
     def OnChanMsg(self, nick, channel, message):
         """ Incoming channel messages """
         if str(channel.GetName()).lower() == self._get_param("_CHANNEL_SOURCE").lower():
-            self._publish_message("{}".format(message))
+			if str(message).startswith('!help'):
+				self._publish_message("{}".format(message))
         return znc.CONTINUE
 
     def _publish_message(self, message):
