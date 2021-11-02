@@ -1,6 +1,6 @@
 znc-relay-modpython
 =============
-znc-relay-modpython is a python module for ZNC to make a one way relay between two channels on different networks, only the content of the message is relayed and all messages are not relayed only those starting with !help (you can of course modify this according to your need).
+znc-relay-modpython is a [python module](https://wiki.znc.in/Modpython) for [ZNC](https://github.com/znc/znc) to make a one way relay between two channels on different networks, only the content of the message is relayed and all messages are not relayed only those starting with !help (you can of course modify this according to your need).
 
 Requirements
 ------------
