@@ -15,7 +15,6 @@ on *:text:!help*:#channel-source:{
   }
 }
 ```
-
 Requirements
 ------------
 You need to have compiled ZNC with option ./configure --enable-python and active modpython.
