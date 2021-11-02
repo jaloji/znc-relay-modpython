@@ -1,5 +1,4 @@
 # pylint: disable=import-error,invalid-name,bare-except,unused-argument,no-self-use
-#/msg *status loadmod relay --network-source= --channel-source= --network-destination= --channel-destination=
 """ Python ZNC module for passing IRC messages between two servers """
 
 import re
@@ -40,7 +39,7 @@ class relay(znc.Module):
     """ ZNC module """
 
     description = "Relay messages between two servers"
-    module_types = [znc.CModInfo.NetworkModule]
+    module_types = [znc.CModInfo.UserModule]
 
     _PARAM_KEYS = {
         "_NETWORK_SOURCE": "--network-source",
@@ -84,14 +83,14 @@ class relay(znc.Module):
         """ Incoming channel messages """
         if str(channel.GetName()).lower() == self._get_param("_CHANNEL_SOURCE").lower():
             if str(message).startswith("!help"):
-                self._publish_message("{}".format(message))
+               self._publish_message("{}".format(message))
         return znc.CONTINUE
 
     def _publish_message(self, message):
         """ Publish messages """
         network = self.GetUser().FindNetwork(self._get_param("_NETWORK_DESTINATION"))
         if network:
-            network.GetIRCSock().Write("PRIVMSG {} :{}\r\n".format(self._get_param("_CHANNEL_DESTINATION"), message))
+            network.PutIRC(str("PRIVMSG {} :{}".format(self._get_param("_CHANNEL_DESTINATION"), message)))
 
     def OnModCommand(self, command):
         """ No commands yet """
